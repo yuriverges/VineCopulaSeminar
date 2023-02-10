@@ -1,0 +1,10 @@
+# Pycharm Folder
+.idea
+
+# File Extensions
+*.lock
+*.dirlock
+
+# Common Folders
+__pycache__
+.ipynb_checkpoints
