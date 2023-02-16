@@ -1,10 +1,19 @@
 import numpy as np
+from numba import jit
 
 
 def zero_mean_garch_1_1_scenario(sim_std_resid, fitted_conditional_volatility, fitted_residuals,  w, alpha, beta):
+
     r_t = np.zeros(sim_std_resid.shape)
     sigma_2 = np.zeros(sim_std_resid.shape)
     eps_t = np.zeros(sim_std_resid.shape)
+
+    return func_numba(r_t, sigma_2, eps_t, sim_std_resid, fitted_conditional_volatility.values,
+                      fitted_residuals.values,  w, alpha, beta)
+
+
+@jit(nopython=True)
+def func_numba(r_t, sigma_2, eps_t, sim_std_resid, fitted_conditional_volatility, fitted_residuals,  w, alpha, beta):
 
     for t in range(sim_std_resid.shape[0]):
         if t == 0:
